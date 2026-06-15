@@ -5,8 +5,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
       <header className="flex items-center justify-between p-6 max-w-5xl mx-auto">
-        <h1 className="text-xl font-bold tracking-tight">SKIOLO</h1>
-        <div>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="text-xl font-bold tracking-tight">SKIOLO</Link>
+          <Link href="/courses" className="text-sm font-medium hover:underline text-gray-600">Courses</Link>
+          <SignedIn>
+            <Link href="/my-courses" className="text-sm font-medium hover:underline text-gray-600">My Courses</Link>
+          </SignedIn>
+        </div>
+        <div className="flex items-center gap-4">
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>

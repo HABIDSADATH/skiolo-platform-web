@@ -8,9 +8,11 @@ interface ApiFetchOptions {
 
 export async function apiFetch<T = unknown>(path: string, options: ApiFetchOptions): Promise<T> {
   const url = `${process.env.NEXT_PUBLIC_API_URL}${path}`;
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-  };
+  const headers: HeadersInit = {};
+
+  if (options.body) {
+    headers['Content-Type'] = 'application/json';
+  }
 
   if (options.token) {
     headers['Authorization'] = `Bearer ${options.token}`;
