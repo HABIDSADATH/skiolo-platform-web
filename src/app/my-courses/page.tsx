@@ -74,7 +74,7 @@ export default function MyCoursesPage() {
             ))}
             {courses.length === 0 && (
               <div className="col-span-full text-center py-12 bg-white rounded-lg border border-dashed border-gray-300">
-                <p className="text-gray-600 mb-4">You haven't purchased any courses yet.</p>
+                <p className="text-gray-600 mb-4">You haven&apos;t purchased any courses yet.</p>
                 <Link href="/courses">
                   <button className="bg-gray-100 text-gray-900 px-6 py-2 rounded-md hover:bg-gray-200 transition text-sm font-medium">
                     Browse Courses
