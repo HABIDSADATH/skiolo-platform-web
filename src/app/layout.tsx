@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Space_Grotesk, Inter, Instrument_Serif } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
@@ -13,6 +13,13 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   weight: ["400", "500", "600"],
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-serif-accent",
+  weight: "400",
+  style: "italic",
 });
 
 import { PublicLayoutWrapper } from "@/components/layout/PublicLayoutWrapper";
@@ -31,7 +38,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${spaceGrotesk.variable} ${inter.variable} font-sans antialiased`}
+          className={`${spaceGrotesk.variable} ${inter.variable} ${instrumentSerif.variable} font-sans antialiased`}
         >
           <PublicLayoutWrapper>
             {children}
