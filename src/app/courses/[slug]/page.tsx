@@ -12,6 +12,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { Button } from "@/components/ui/Button";
 import { AlertCircle, CheckCircle2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
+import { PurchaseSuccessModal } from "@/components/PurchaseSuccessModal";
 
 export default function CourseDetailPage() {
   const params = useParams();
@@ -26,6 +27,7 @@ export default function CourseDetailPage() {
   const [buying, setBuying] = useState(false);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [accessUrl, setAccessUrl] = useState<string | null>(null);
+  const [successModal, setSuccessModal] = useState<{ isOpen: boolean; orderId: string; amountPaise: number } | null>(null);
 
   useEffect(() => {
     async function checkEnrollment() {
@@ -99,7 +101,12 @@ export default function CourseDetailPage() {
         description: orderData.courseTitle,
         order_id: orderData.orderId,
         handler: function (response: any) {
-          toast.success("Payment received! Confirming your enrollment...", { duration: 5000 });
+          // Show the success modal immediately
+          setSuccessModal({
+            isOpen: true,
+            orderId: orderData.orderId,
+            amountPaise: orderData.amountPaise,
+          });
           
           // Poll for access status
           let retries = 0;
@@ -111,10 +118,10 @@ export default function CourseDetailPage() {
               if (!currentToken) return;
               const access = await apiFetch<any>(`/courses/${slug}/access`, { method: "GET", token: currentToken });
               
-              // If successful, update UI automatically
+              // If successful, update UI automatically behind the modal
               setIsEnrolled(true);
               setAccessUrl(access.accessUrl);
-              toast.success("Enrollment confirmed! You now have access.");
+              // We omit the secondary success toast here since the modal is visible
             } catch (err) {
               retries++;
               if (retries < maxRetries) {
@@ -213,6 +220,17 @@ export default function CourseDetailPage() {
 
   return (
     <div className="min-h-screen bg-paper text-ink font-sans pb-32">
+      <PurchaseSuccessModal
+        isOpen={!!successModal?.isOpen}
+        onClose={() => setSuccessModal(prev => prev ? { ...prev, isOpen: false } : null)}
+        onPrimaryAction={handleAccess}
+        primaryActionLabel="Access Course Now"
+        productTitle={course.title}
+        amountPaise={successModal?.amountPaise || 0}
+        orderId={successModal?.orderId || ""}
+        type="course"
+      />
+      
       <div className="max-w-6xl mx-auto px-6 pt-12">
         <FadeUp>
           <Link href="/courses" className="inline-flex items-center gap-2 text-ink-muted hover:text-navy font-medium text-sm mb-8 transition-colors">

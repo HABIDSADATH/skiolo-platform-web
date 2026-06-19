@@ -12,6 +12,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { Button } from "@/components/ui/Button";
 import { AlertCircle, CheckCircle2, ArrowLeft, CalendarDays, MapPin, Video } from "lucide-react";
 import { toast } from "sonner";
+import { PurchaseSuccessModal } from "@/components/PurchaseSuccessModal";
 
 export default function WorkshopDetailPage() {
   const params = useParams();
@@ -25,6 +26,7 @@ export default function WorkshopDetailPage() {
   const [booking, setBooking] = useState(false);
   const [userBooking, setUserBooking] = useState<any>(null);
   const [checkingBooking, setCheckingBooking] = useState(false);
+  const [successModal, setSuccessModal] = useState<{ isOpen: boolean; orderId: string; amountPaise: number } | null>(null);
 
   const fetchUserBooking = async (workshopId: string) => {
     if (!isSignedIn) return;
@@ -117,12 +119,10 @@ export default function WorkshopDetailPage() {
           description: response.workshopTitle,
           order_id: response.orderId,
           handler: async function (rzpRes: any) {
-            toast.success("Payment received, confirming your booking shortly...", {
-              action: {
-                label: "Go to My Bookings",
-                onClick: () => router.push("/my-bookings")
-              },
-              duration: 10000,
+            setSuccessModal({
+              isOpen: true,
+              orderId: response.orderId,
+              amountPaise: response.amountPaise,
             });
             await fetchUserBooking(workshop.id);
           },
@@ -164,6 +164,17 @@ export default function WorkshopDetailPage() {
 
   return (
     <div className="min-h-screen bg-paper text-ink font-sans pb-32">
+      <PurchaseSuccessModal
+        isOpen={!!successModal?.isOpen}
+        onClose={() => setSuccessModal(prev => prev ? { ...prev, isOpen: false } : null)}
+        onPrimaryAction={() => router.push("/my-bookings")}
+        primaryActionLabel="View My Bookings"
+        productTitle={workshop.title}
+        amountPaise={successModal?.amountPaise || 0}
+        orderId={successModal?.orderId || ""}
+        type="workshop"
+      />
+
       <div className="max-w-6xl mx-auto px-6 pt-12">
         <FadeUp>
           <Link href="/workshops" className="inline-flex items-center gap-2 text-ink-muted hover:text-navy font-medium text-sm mb-8 transition-colors">
