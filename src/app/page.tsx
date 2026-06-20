@@ -6,6 +6,45 @@ import { Card } from "@/components/ui/Card";
 import { BookOpen, Presentation, Star } from "lucide-react";
 import { FloatingActions } from "@/components/FloatingActions";
 
+const testimonials = [
+  {
+    image: "/testimonials/Nizar Ahammed.jpeg",
+    name: "Nizar Ahammed",
+    title: "CEO, Lago Group",
+    quote: "SKIOLO brought real structure to how we operate. The systems they set up gave our team clarity we never had before — everyone finally knows their role and what to deliver."
+  },
+  {
+    image: "/testimonials/Abdul Kalam Asad.jpeg",
+    name: "Abdul Kalam Asad",
+    title: "CEO, Focus Motors",
+    quote: "Before SKIOLO, too much depended on me personally. They helped us build proper processes and reporting, and now the business runs smoothly without me chasing every detail."
+  },
+  {
+    image: "/testimonials/Aseem.jpeg",
+    name: "Aseem",
+    title: "CEO, Deco Italia",
+    quote: "The clarity SKIOLO delivers is exceptional. They documented our workflows and put systems in place that made our whole operation more organized and scalable."
+  },
+  {
+    image: "/testimonials/Nikhil KG.jpeg",
+    name: "Nikhil KG",
+    title: "CEO, Money Talk",
+    quote: "Working with SKIOLO was a turning point. Their approach to systems and SOPs transformed how we manage our team and track performance. Highly recommended for any growing business."
+  },
+  {
+    image: "/testimonials/Niyas Cholakkal.jpeg",
+    name: "Niyas Cholakkal",
+    title: "CEO, Toptan Finistore",
+    quote: "SKIOLO understands what a business actually needs to scale. The structure and accountability they installed have made a real difference to our day-to-day operations."
+  },
+  {
+    image: "/testimonials/Shibin Chettuvai.jpeg",
+    name: "Shibin Chettuvai",
+    title: "CEO, Ed-Dream Distance Education",
+    quote: "Genuinely impressed with SKIOLO's work. They set up systems that brought order and direction to our organization. Our processes are clearer and our team is far more efficient now."
+  }
+];
+
 export default function Home() {
   return (
     <div className="flex flex-col w-full bg-paper">
@@ -220,153 +259,42 @@ export default function Home() {
       </section>
 
       {/* 4. TESTIMONIALS */}
-      {/* PLACEHOLDER: Replace these generic testimonials with real client testimonials */}
       <section className="w-full py-24 px-6 bg-paper-sunken border-t border-line">
         <div className="max-w-6xl mx-auto">
           <FadeUp delay={0.1} className="mb-16 text-center">
-            <h2 className="text-3xl font-display font-bold text-ink tracking-tight2">
-              Trusted by <span className="font-serif-accent text-accent-green">operators</span> everywhere
+            <span className="uppercase tracking-widest text-xs font-semibold text-accent-blue font-sans block mb-4">
+              &mdash; WHAT LEADERS SAY
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-ink tracking-tight2">
+              Trusted by founders who <span className="font-serif-accent text-navy italic">set the system.</span>
             </h2>
           </FadeUp>
 
           <Stagger staggerDelay={0.1} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
-                  </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;SKIOLO gave us the exact framework we needed to document our processes. We finally have clarity.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Rahul M." className="w-12 h-12 rounded-full object-cover" />
+            {testimonials.map((t, idx) => (
+              <FadeUp key={idx} className="h-full">
+                <Card className="p-8 h-full bg-paper-card border border-line rounded-2xl2 shadow-soft hover:shadow-soft-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
                   <div>
-                    <p className="font-semibold text-ink font-display">Rahul M.</p>
-                    <p className="text-sm text-ink-muted">Founder — Calicut</p>
+                    <div className="flex gap-1 mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
+                      ))}
+                    </div>
+                    <p className="text-ink-soft font-sans mb-8 text-lg leading-relaxed">
+                      &quot;{t.quote}&quot;
+                    </p>
                   </div>
-                </div>
-              </Card>
-            </FadeUp>
-
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
+                  <div className="flex items-center gap-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={encodeURI(t.image)} alt={t.name} className="w-14 h-14 rounded-full object-cover shrink-0" />
+                    <div>
+                      <p className="font-semibold text-ink font-display">{t.name}</p>
+                      <p className="text-sm text-ink-muted">{t.title}</p>
+                    </div>
                   </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;The workshop completely changed how I look at delegation. I&apos;m no longer the bottleneck in my own company.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Asha K." className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-ink font-display">Asha K.</p>
-                    <p className="text-sm text-ink-muted">Operations Lead — Kochi</p>
-                  </div>
-                </div>
-              </Card>
-            </FadeUp>
-
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
-                  </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;Implementing the systems from these courses saved us hundreds of hours in onboarding new hires.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Vivek S." className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-ink font-display">Vivek S.</p>
-                    <p className="text-sm text-ink-muted">Director — Thrissur</p>
-                  </div>
-                </div>
-              </Card>
-            </FadeUp>
-
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
-                  </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;Finally, a platform that doesn&apos;t just talk about theory, but gives you the exact templates to execute.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/women/4.jpg" alt="Meera J." className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-ink font-display">Meera J.</p>
-                    <p className="text-sm text-ink-muted">CEO — Trivandrum</p>
-                  </div>
-                </div>
-              </Card>
-            </FadeUp>
-
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
-                  </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;Our team&apos;s productivity doubled within a month of taking the automation workshop.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/men/5.jpg" alt="Arjun T." className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-ink font-display">Arjun T.</p>
-                    <p className="text-sm text-ink-muted">Manager — Kannur</p>
-                  </div>
-                </div>
-              </Card>
-            </FadeUp>
-
-            <FadeUp>
-              <Card className="p-8 h-full bg-white flex flex-col justify-between">
-                <div>
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={16} className="fill-accent-amber text-accent-amber" />
-                    ))}
-                  </div>
-                  <p className="text-ink-soft mb-8 text-lg italic font-serif-accent">
-                    &quot;The community of operators here is unmatched. It&apos;s the best investment we made this year.&quot;
-                  </p>
-                </div>
-                <div className="flex items-center gap-4">
-                  {/* PLACEHOLDER PHOTO */}
-                  <img src="https://randomuser.me/api/portraits/women/6.jpg" alt="Priya N." className="w-12 h-12 rounded-full object-cover" />
-                  <div>
-                    <p className="font-semibold text-ink font-display">Priya N.</p>
-                    <p className="text-sm text-ink-muted">Founder — Palakkad</p>
-                  </div>
-                </div>
-              </Card>
-            </FadeUp>
+                </Card>
+              </FadeUp>
+            ))}
           </Stagger>
         </div>
       </section>
